@@ -88,6 +88,6 @@ for gid, gname in GROUPS:
     all_rows.extend(rows)
 
 df = pd.DataFrame(all_rows)
-df.to_csv("vk_water_comments_all.csv", index=False)
+df.to_csv("data/raw/comments.csv", index=False)
 
 print("ИТОГО комментариев:", len(df))

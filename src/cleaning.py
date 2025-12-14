@@ -3,7 +3,7 @@ import re
 import demoji
 import re
 
-df = pd.read_csv("comments.csv")
+df = pd.read_csv("data/raw/comments.csv")
 
 def clean_vk_mentions(text):
     text = re.sub(r"\[id\d+\|([^\]]+)\]", r"\1", text)
@@ -23,5 +23,4 @@ df['clean_text'] = df['clean_text'].apply(clean_text)
 
 df = df[df['clean_text'].str.len() > 10].reset_index(drop=True)
 
-print(df.head())
-
+df.to_csv('data/clean/clean_comments.csv', index=False)
