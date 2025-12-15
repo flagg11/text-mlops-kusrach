@@ -1,20 +1,17 @@
 from rusentilex import load_rusentilex
+from collections import Counter
 
-POS_WORDS, NEG_WORDS = load_rusentilex("data/rusentilex_2017.txt")
+LEXICON = load_rusentilex("data/rusentilex_2017.txt")
 
 def sentiment_label(text):
-    pos_count = 0
-    neg_count = 0
+    tokens = text.split()
+    sentiments = [LEXICON[t] for t in tokens if t in LEXICON]
 
-    for word in text.split():
-        if word in POS_WORDS:
-            pos_count += 1
-        elif word in NEG_WORDS:
-            neg_count += 1
+    counts = Counter(sentiments)
 
-    if pos_count > neg_count:
+    if counts["positive"] > counts["negative"]:
         return "positive"
-    elif neg_count > pos_count:
+    elif counts["negative"] > counts["positive"]:
         return "negative"
     else:
         return "neutral"

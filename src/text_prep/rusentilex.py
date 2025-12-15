@@ -1,25 +1,11 @@
 def load_rusentilex(path):
-    positive = set()
-    negative = set()
-
+    lex = {}
     with open(path, encoding="utf-8") as f:
         for line in f:
-            line = line.strip()
-
-            if not line or line.startswith("!"):
+            if line.startswith("!") or not line.strip():
                 continue
-
             parts = [p.strip() for p in line.split(",")]
-
-            if len(parts) < 4:
-                continue  
-
-            word = parts[0].lower()
-            sentiment = parts[3].lower()
-
-            if sentiment == "positive":
-                positive.add(word)
-            elif sentiment == "negative":
-                negative.add(word)
-
-    return positive, negative
+            word = parts[2]
+            sentiment = parts[3]
+            lex[word] = sentiment
+    return lex
