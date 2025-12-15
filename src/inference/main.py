@@ -1,31 +1,29 @@
 from fastapi import FastAPI
-import joblib
-from pydantic import BaseModel
-from ..text_prep.labeling import hybrid_sentiment_label, LEXICON
+import pickle
 
-app = FastAPI(
-    title="VK Comments Sentiment API",
-    description="API для анализа тональности комментариев",
-    version="0.2.0"
-)
+from src.inference.schemas import PredictRequest, PredictResponse
+from src.utils.config import load_config
 
-class PredictRequest(BaseModel):
-    comments: list[str]
+app = FastAPI()
 
-class PredictResponse(BaseModel):
-    predictions: list[str]
+config = load_config()
+model_path = config["train"]["model_path"]
+vectorizer_path = config["train"]["vectorizer_path"]
 
-model = joblib.load("models/lr_model.pkl")
-vectorizer = joblib.load("models/tfidf_vectorizer.pkl")
+with open(model_path, "rb") as f:
+    model = pickle.load(f)
+
+with open(vectorizer_path, "rb") as f:
+    vectorizer = pickle.load(f)
+
 
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
+
 @app.post("/predict", response_model=PredictResponse)
-def predict(req: PredictRequest):
-    preds = []
-    for c in req.comments:
-        pred = hybrid_sentiment_label(c, model=model, vectorizer=vectorizer)
-        preds.append(pred)
-    return {"predictions": preds}
+def predict(request: PredictRequest):
+    X = vectorizer.transform(request.comments)
+    preds = model.predict(X)
+    return {"predictions": preds.tolist()}
