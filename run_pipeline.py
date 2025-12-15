@@ -1,3 +1,5 @@
+import subprocess
+import sys
 from src.utils.config import load_config
 from src.text_prep.prep_dataset import prep_dataset
 from src.ml.train import train_model
@@ -13,6 +15,15 @@ def run_pipeline():
     if cfg["pipeline"]["run_train"]:
         print("=== MODEL TRAINING ===")
         train_model(cfg)
+
+    if cfg["pipeline"]["run_api"]:
+        print("=== RUN FASTAPI ===")
+        subprocess.run([
+            sys.executable,
+            "-m",
+            "src.inference.main"
+        ])
+
 
 
 if __name__ == "__main__":

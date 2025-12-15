@@ -13,3 +13,8 @@ mlflow:
 pipeline:
   run_prep: true
   run_train: true
+  run_api: true
+
+inference:
+  host: 0.0.0.0
+  port: 8000
