@@ -1,18 +1,15 @@
 train:
   data_path: data/labeled/comments.csv
-  text_column: clean_text
-  target_column: sentiment
-
-  model_dir: models/
   model_path: models/lr_model.pkl
   vectorizer_path: models/tfidf_vectorizer.pkl
-
   test_size: 0.2
   random_state: 42
+  max_features: 20000
+  ngram_range: [1, 2]
 
 mlflow:
-  experiment_name: vk_sentiment_baseline
+  experiment_name: sentiment_analysis
 
-inference:
-  host: 0.0.0.0
-  port: 8000
+pipeline:
+  run_prep: true
+  run_train: true

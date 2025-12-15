@@ -1,20 +1,26 @@
 import pandas as pd
 
-'''import sys
-print("SYS.PATH =", sys.path)
-'''
-
-from labeling import sentiment_label
-from lemmatization import lemmatize_text
+from src.text_prep.lemmatization import lemmatize_text
+from src.text_prep.labeling import hybrid_sentiment_label
 
 
-df = pd.read_csv("data/clean/clean_comments.csv")
+def prep_dataset(
+    input_path: str = "data/clean/clean_comments.csv",
+    output_path: str = "data/labeled/comments.csv"
+):
+    df = pd.read_csv(input_path)
 
-df["lemmatized"] = df["clean_text"].astype(str).apply(lemmatize_text)
-df["sentiment"] = df["lemmatized"].apply(sentiment_label)
+    df["clean_text"] = df["clean_text"].astype(str)
+    df["lemmatized"] = df["clean_text"].apply(lemmatize_text)
+    df["sentiment"] = df["lemmatized"].apply(hybrid_sentiment_label)
 
-df = df[["lemmatized", "sentiment"]]
+    df = df[["lemmatized", "sentiment"]]
 
-df.to_csv("data/labeled/comments.csv", index=False)
-print(df["sentiment"].value_counts())
+    df.to_csv(output_path, index=False)
 
+    print("Dataset prepared:")
+    print(df["sentiment"].value_counts())
+
+
+if __name__ == "__main__":
+    prep_dataset()

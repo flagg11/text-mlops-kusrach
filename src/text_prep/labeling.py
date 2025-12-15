@@ -1,4 +1,4 @@
-from .rusentilex import load_rusentilex
+from src.text_prep.rusentilex import load_rusentilex
 from collections import Counter
 
 LEXICON = load_rusentilex("data/rusentilex_2017.txt")
