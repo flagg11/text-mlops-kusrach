@@ -172,7 +172,7 @@ docker run -e MLFLOW_PORT=2333 -p 8000:8000 -p 2333:2333 vk_commentary_sentiment
 http://localhost:2333
 ```
 
-### 🎬 Пример работы сервиса
+## 🎬 Пример работы сервиса
 
 <video width="1920" controls>
   <source src="media/example.mp4" type="video/mp4">
