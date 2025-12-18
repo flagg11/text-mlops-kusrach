@@ -1,6 +1,6 @@
 # VK Comment Sentiment Analysis
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
@@ -39,7 +39,7 @@
 ### 1. Клонирование репозитория
 ```bash
 git clone https://github.com/flagg11/text-mlops-kusrach.git
-cd text-mlops-kutsach
+cd text-mlops-kusrach
 ```
 
 
@@ -94,12 +94,24 @@ graph TD;
 - /predict — приём JSON с комментариями и возврат предсказаний
 
 Пример запроса:
-```python
-import requests
+```bash
+{
+    "comments": [
+            "Полный ужас, отвратительный сервис, всё сломано, персонал ДНО!",
+            "Еда норм."
+        ]
+}
+```
+<br>
 
-data = {"comments": "Полный ужас, отвратительный сервис, всё сломано, никто не помогает!", "Еда норм."]}
-resp = requests.post("http://127.0.0.1:8000/predict", json=data)
-print(resp.json())
+Пример ответа:
+```bash
+{
+  "predictions": [
+    "negative",
+    "neutral"
+  ]
+}
 ```
 
 ## 🔌 API Документация
@@ -112,13 +124,56 @@ print(resp.json())
 </b>
 ---
 
+
+---
+
+## 🧪 MLflow UI
+
+MLflow используется для отслеживания экспериментов, метрик и сохранения моделей. После запуска пайплайна автоматически создаются новые эксперименты и сохраняются результаты обучения.
+
+### Локальный запуск MLflow UI
+
+```bash
+mlflow ui
+```
+
+MLflow UI будет доступен по умолчанию на порту 5000:
+
+```
+http://localhost:5000
+```
+
 ## 🐳 Docker
 
 Сборка и запуск контейнера:
+
 ```bash
 docker build -t vk_commentary_sentiment_analysis .
-docker run -p 8000:8000 vk_commentary_sentiment_analysis
+docker run -p 8000:8000 -p 5000:5000 vk_commentary_sentiment_analysis
 ```
+
+* `8000:8000` — FastAPI (для переопределения измените файл config.yaml)
+* `5000:5000` — MLflow UI
+
+После запуска в браузере можно открыть:
+
+```
+http://localhost:5000
+```
+
+Чтобы переопределить порт MLflow UI без изменения Dockerfile, можно использовать переменную окружения:
+
+```bash
+docker run -e MLFLOW_PORT=2333 -p 8000:8000 -p 2333:2333 vk_commentary_sentiment_analysis
+```
+
+После этого MLflow UI будет доступен по адресу:
+
+```
+http://localhost:2333
+```
+
+
 
 
 ## 📝 License

@@ -23,5 +23,8 @@ COPY . .
 
 EXPOSE 8000
 
+ENV MLFLOW_PORT=5000
 
-ENTRYPOINT ["python", "run_pipeline.py"]
+EXPOSE 5000
+
+ENTRYPOINT ["sh", "-c", "python run_pipeline.py & mlflow ui --host 0.0.0.0 --port ${MLFLOW_PORT}"]
