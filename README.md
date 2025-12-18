@@ -174,7 +174,7 @@ http://localhost:2333
 
 ## 🎬 Пример работы сервиса
 
-<video width="1920" controls>
+<video width="600" controls>
   <source src="media/example.mp4" type="video/mp4">
   Ваш браузер не поддерживает видео.
 </video>
