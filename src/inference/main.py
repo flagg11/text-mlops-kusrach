@@ -11,7 +11,7 @@ vectorizer_path = config["train"]["vectorizer_path"]
 model = joblib.load(model_path)
 vectorizer = joblib.load(vectorizer_path)
 
-app = FastAPI(title="VK Comments Sentiment API")
+app = FastAPI(title="Анализ комментов ВК")
 
 @app.get("/health")
 def health():
@@ -21,7 +21,20 @@ def health():
 def predict(request: PredictRequest):
     X = vectorizer.transform(request.comments)
     preds = model.predict(X)
-    return {"predictions": preds.tolist()}
+    
+    if hasattr(model, "predict_proba"):
+        probs = model.predict_proba(X)
+        class_to_index = {c: idx for idx, c in enumerate(model.classes_)}
+        confidences = [round(float(probs[i][class_to_index[preds[i]]]), 3) for i in range(len(preds))]
+    else:
+        confidences = [None] * len(preds)
+
+
+
+    return {
+        "predictions": preds.tolist(),
+        "confidences": confidences
+    }
 
 if __name__ == "__main__":
     import uvicorn

@@ -20,4 +20,8 @@ data = {"comments": [
 ]}
 
 resp = requests.post(url, json=data)
-print(resp.json())
+
+if resp.status_code == 200:
+    print(resp.json())
+else:
+    print(f"Ошибка {resp.status_code}: {resp.text}")
