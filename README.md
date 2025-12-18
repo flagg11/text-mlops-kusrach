@@ -174,10 +174,7 @@ http://localhost:2333
 
 ## 🎬 Пример работы сервиса
 
-<video width="600" controls>
-  <source src="media/example.mp4" type="video/mp4">
-  Ваш браузер не поддерживает видео.
-</video>
+[Смотреть видео пример работы сервиса](https://github.com/flagg11/text-mlops-kusrach/raw/refs/heads/main/media/example.mp4)
 
 
 
