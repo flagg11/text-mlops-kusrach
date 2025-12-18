@@ -1,10 +1,11 @@
 from src.text_prep.rusentilex import load_rusentilex
 from collections import Counter
+import re
 
 LEXICON = load_rusentilex("data/rusentilex_2017.txt")
 
 def hybrid_sentiment_label(text, model=None, vectorizer=None):
-    tokens = text.lower().split()
+    tokens = re.findall(r'\b\w+\b', text.lower())
     sentiments = [LEXICON[t] for t in tokens if t in LEXICON]
     counts = Counter(sentiments)
 

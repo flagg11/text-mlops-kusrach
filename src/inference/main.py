@@ -3,6 +3,7 @@ import joblib
 
 from src.inference.schemas import PredictRequest, PredictResponse
 from src.utils.config import load_config
+from src.text_prep import labeling
 
 config = load_config()
 model_path = config["train"]["model_path"]
@@ -19,22 +20,11 @@ def health():
 
 @app.post("/predict", response_model=PredictResponse)
 def predict(request: PredictRequest):
-    X = vectorizer.transform(request.comments)
-    preds = model.predict(X)
-    
-    if hasattr(model, "predict_proba"):
-        probs = model.predict_proba(X)
-        class_to_index = {c: idx for idx, c in enumerate(model.classes_)}
-        confidences = [round(float(probs[i][class_to_index[preds[i]]]), 3) for i in range(len(preds))]
-    else:
-        confidences = [None] * len(preds)
-
-
-
-    return {
-        "predictions": preds.tolist(),
-        "confidences": confidences
-    }
+    predictions = [
+        labeling.hybrid_sentiment_label(comment, model=model, vectorizer=vectorizer)
+        for comment in request.comments
+    ]
+    return {"predictions": predictions}
 
 if __name__ == "__main__":
     import uvicorn

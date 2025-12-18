@@ -29,9 +29,9 @@ mlflow:
 output_dir: models
 
 train:
-  data_path: data/labeled/comments.csv
-  model_path: models/lr_model.pkl
-  vectorizer_path: models/tfidf_vectorizer.pkl
+  data_path: data/labeled/_comments.csv
+  model_path: models/exp_lr_big_model.pkl
+  vectorizer_path: models/exp_lr_big_vectorizer.pkl
   test_size: 0.2
   random_state: 42
   max_features: 20000
