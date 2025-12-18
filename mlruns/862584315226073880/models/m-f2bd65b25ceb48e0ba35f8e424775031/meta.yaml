@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/flagg73/Desktop/text-mlops-kusrach/mlruns/862584315226073880/models/m-f2bd65b25ceb48e0ba35f8e424775031/artifacts
+creation_timestamp: 1766082921376
+experiment_id: '862584315226073880'
+last_updated_timestamp: 1766082924231
+model_id: m-f2bd65b25ceb48e0ba35f8e424775031
+model_type: null
+name: model
+source_run_id: 9f45abeffb6f410a825e0278f25bca51
+status: 2
+status_message: null

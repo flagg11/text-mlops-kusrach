@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/flagg73/Desktop/text-mlops-kusrach/mlruns/862584315226073880/1962f65db3a94fce9715c21b08b171c6/artifacts
+end_time: 1766082811665
+entry_point_name: ''
+experiment_id: '862584315226073880'
+lifecycle_stage: active
+run_id: 1962f65db3a94fce9715c21b08b171c6
+run_name: exp_lr_big
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766082808430
+status: 3
+tags: []
+user_id: flagg73

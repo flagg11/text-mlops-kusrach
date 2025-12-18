@@ -1,0 +1,22 @@
+artifact_path: file:C:/Users/flagg73/Desktop/text-mlops-kusrach/mlruns/862584315226073880/models/m-677c66cd6312472ead9c9357c777d534/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.5
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+mlflow_version: 3.7.0
+model_id: m-677c66cd6312472ead9c9357c777d534
+model_size_bytes: 480707
+model_uuid: m-677c66cd6312472ead9c9357c777d534
+prompts: null
+run_id: 693ae47d3b904bb1b815d7dc4a554985
+utc_time_created: '2025-12-18 18:35:27.094346'
