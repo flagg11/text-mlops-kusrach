@@ -8,8 +8,8 @@ load_dotenv()
 
 TOKEN = os.getenv("VK_TOKEN")
 
-POSTS_LIMIT = 300
-COMMENTS_PER_POST = 100
+POSTS_LIMIT = 3000
+COMMENTS_PER_POST = 1000
 
 vk = VkApi(token=TOKEN)
 api = vk.get_api()

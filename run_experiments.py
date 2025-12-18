@@ -28,7 +28,7 @@ def run_experiments():
         print(f"Running experiment: {exp['name']}")
 
         df = pd.read_csv(exp["dataset_path"])
-        text_col = "lemmatized"
+        text_col = "processed_text"
         X = df[text_col]
         y = df["sentiment"]
 

@@ -10,12 +10,20 @@ def hybrid_sentiment_label(text, model=None, vectorizer=None):
     counts = Counter(sentiments)
 
     if counts:
-        if counts["positive"] > counts["negative"]:
+        pos_count = counts.get("positive", 0)
+        neg_count = counts.get("negative", 0)
+        
+        if pos_count > neg_count:
             return "positive"
-        elif counts["negative"] > counts["positive"]:
+        elif neg_count > pos_count:
+            return "negative"
+        elif pos_count > 0: 
+            return "positive"
+        elif neg_count > 0:
             return "negative"
         else:
             return "neutral"
+
     elif model and vectorizer:
         X = vectorizer.transform([text])
         return model.predict(X)[0]
